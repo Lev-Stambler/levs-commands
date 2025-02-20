@@ -1,3 +1,36 @@
+#import "@preview/ctheorems:1.1.3": *
+#import emoji : checkmark
+
+///////////////// Theorem Styles //////////////////
+#show: thmrules
+#let thmrulesCustom = thmrules.with(qed-symbol: [#checkmark.box])
+
+#set page(width: 16cm, height: auto, margin: 1.5cm)
+#set heading(numbering: "1.1.")
+
+#let theorem = thmbox("theorem", "Theorem", fill: rgb("#eeffee"))
+#let corollary = thmplain(
+  "corollary",
+  "Corollary",
+  base_level: 1,
+  base: "theorem",
+  titlefmt: strong
+)
+
+#let lemma = thmplain(
+  "lemma",
+  "Lemma",
+  base_level: 1,
+  base: "theorem",
+  titlefmt: strong
+)
+
+#let definition = thmbox("definition", "Definition", inset: (x: 1.2em, top: 1em), base_level: 1,)
+
+#let example = thmplain("example", "Example").with(numbering: none)
+#let proof = thmproof("proof", "Proof")
+///////////////// End Theorem Styles //////////////////
+
 ///////////////// Caligraphic Letters //////////////////
 #let calA = $cal(A)$
 #let calB = $cal(B)$
@@ -35,4 +68,5 @@
 
 ///////////////// Math Symbols //////////////////
 #let eps = $epsilon.alt$
+
 
