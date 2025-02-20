@@ -4,6 +4,9 @@
 	TODO: #x
 ]
 
+#let LLMTODO = x => text(green)[
+	LLM TODO: #x
+]
 
 #let LLMExplains = (x, name: "An LLM") => box(
 	fill: rgb("#f0f0f0"),
