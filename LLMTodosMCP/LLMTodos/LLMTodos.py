@@ -75,7 +75,7 @@ async def fill_in_todos(project_dir: str) -> str:
     files = (await typst.handle_read_files(None))["files"]
     tasks = (await typst.handle_process_tasks(None))["tasks"]
 
-    return f"Files: {files}\n--\n Tasks: {tasks}"
+    return f"Files: {files}\n--\n Tasks: {tasks} \n\n For each answer respond with a wrapping of ```ANSWER``` and use Typst markup"
 
 if __name__ == "__main__":
     # Initialize and run the server
