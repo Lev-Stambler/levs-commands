@@ -8,7 +8,8 @@
 #set page(width: 16cm, height: auto, margin: 1.5cm)
 #set heading(numbering: "1.1.")
 
-#let theorem = thmbox("theorem", "Theorem", fill: rgb("#eeffee"))
+#let theorem = thmbox("theorem", "Theorem", fill: rgb("#eeffee"), base_level: 1)
+#let assumption = thmbox("assumption", "Assumption", fill: rgb("#fffeee"), base_level: 1)
 #let corollary = thmplain(
   "corollary",
   "Corollary",
@@ -26,6 +27,7 @@
 )
 
 #let definition = thmbox("definition", "Definition", inset: (x: 1.2em, top: 1em), base_level: 1,)
+#let observation = thmbox("definition", "Definition", inset: (x: 1.2em, top: 1em), base_level: 1,)
 
 #let example = thmplain("example", "Example").with(numbering: none)
 #let proof = thmproof("proof", "Proof")

@@ -10,11 +10,14 @@
 #let sk = $mono("sk")$
 
 #let advers = $calA$
+#let advers2 = $calB$
 #let Sim = $sans("Sim")$
 #let Exp = $sans("Exp")$
 #let Hyb = $sans("Hyb")$
 #let Game = $sans("Game")$
 #let Setup = $sans("Setup")$
+#let negl = $sans("negl")$
+#let poly = $sans("poly")$
 #let ct = $mono("ct")$
 #let ciphertext = $ct$
 

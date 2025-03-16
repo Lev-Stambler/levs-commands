@@ -8,13 +8,13 @@
 	LLM TODO: #x
 ]
 
-#let LLMExplains = (x, name: "An LLM") => box(
+#let LLMExplains = (x, name: "An LLM", title: "") => box(
 	fill: rgb("#f0f0f0"),
 	inset: 1em,
 	stroke: 1pt + rgb("#000000"),
 	radius: Constants.borderRadius,
 	width: 100%,
 )[
-	*#name Explains*:	#x
+	*#name explains #title*:	#x
 ]
 
