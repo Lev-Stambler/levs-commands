@@ -1,4 +1,9 @@
 #import "./constants.typ" as Constants
+
+#let h1 = x => heading(x, numbering: none, level: 1)
+#let h2 = x => heading(x, numbering: none, level: 2)
+#let h3 = x => heading(x, numbering: none, level: 3)
+
 ////////// Writing Process Commands //////////
 #let TODO = x => text(red)[
 	TODO: #x

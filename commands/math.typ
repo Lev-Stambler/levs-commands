@@ -27,7 +27,7 @@
 )
 
 #let definition = thmbox("definition", "Definition", inset: (x: 1.2em, top: 1em), base_level: 1,)
-#let observation = thmbox("definition", "Definition", inset: (x: 1.2em, top: 1em), base_level: 1,)
+#let observation = thmbox("observation", "Observation", inset: 1.5em, fill: rgb("eeeeee"), base_level: 1,)
 
 #let example = thmplain("example", "Example").with(numbering: none)
 #let proof = thmproof("proof", "Proof")
