@@ -8,13 +8,21 @@
 #set page(width: 16cm, height: auto, margin: 1.5cm)
 #set heading(numbering: "1.1.")
 
-#let theorem = thmbox("theorem", "Theorem", fill: rgb("#eeffee"), base_level: 1)
+#let theorem = thmbox("theorem", "Theorem", fill: rgb("#eeeeee"), base_level: 1)
 #let assumption = thmbox("assumption", "Assumption", fill: rgb("#fffeee"), base_level: 1)
 #let corollary = thmplain(
   "corollary",
   "Corollary",
   base_level: 1,
   base: "theorem",
+  titlefmt: strong
+)
+
+// Due to a bug in the ctheorems package, if a section is lacking an inital theorem statement and we want to use a lemma, we need to define a new theorem style as follows
+#let lemmathm = thmplain(
+  "theorem",
+  "Lemma",
+  base_level: 1,
   titlefmt: strong
 )
 
@@ -31,6 +39,27 @@
 
 #let example = thmplain("example", "Example").with(numbering: none)
 #let proof = thmproof("proof", "Proof")
+
+
+
+#let eq = f => math.equation(f, numbering: "(1)", block: true, supplement: none)
+#let eqrules(doc) = {
+  show ref: it => {
+    if it.element != none and it.element.func() == math.equation {
+      let num = it.element.numbering
+      if num != none {
+        [eq. (#it)]
+      } else {
+        it
+      }
+    } else {
+      it
+    }
+  }
+  doc
+}
+
+
 ///////////////// End Theorem Styles //////////////////
 
 ///////////////// Caligraphic Letters //////////////////
@@ -72,3 +101,10 @@
 #let eps = $epsilon.alt$
 
 
+#let ProbDist(x) = $bb(P)_#x$
+#let Var = $"Var"$
+#let ind = $"ind"$
+
+////////////////// Math Functions //////////////////
+#let Enc = $"Enc"$
+#let Dec = $"Dec"$
