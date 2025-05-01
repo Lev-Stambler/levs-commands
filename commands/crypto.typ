@@ -7,6 +7,7 @@
 */
 
 #let pk = $mono("pk")$
+#let mpk = $mono("mpk")$
 #let sk = $mono("sk")$
 #let vk = $mono("vk")$
 #let ek = $mono("ek")$
@@ -41,6 +42,7 @@
 /////////////// Generic Protocol Commands for Commitments ////////////////
 #let Commit = $"Commit"$
 #let Setup = $"Setup"$
+#let Init = $"Init"$
 #let Open = $"Open"$
 #let Verify = $"Verify"$
 #let KeyGen = $"KeyGen"$
