@@ -13,6 +13,7 @@
 #let ek = $mono("ek")$
 #let Encr = $mono("Encr")$
 #let skEncr = $sk\.mono("Encr")$
+#let skDecr = $sk\.mono("Decr")$
 
 #let advers = $calA$
 #let advers2 = $calB$
@@ -42,6 +43,7 @@
 /////////////// Generic Protocol Commands for Commitments ////////////////
 #let Commit = $"Commit"$
 #let Setup = $"Setup"$
+#let Eval = $"Eval"$
 #let Init = $"Init"$
 #let Open = $"Open"$
 #let Verify = $"Verify"$
@@ -53,7 +55,7 @@
 #let Valid = $"Valid"$
 #let comm = $mono("comm")$
 #let ck = $mono("ck")$
-
+#let aux = $mono("aux")$
 
 ///////////////// KEMs /////////////////
 #let Encap = $sans("Encap")$
@@ -63,3 +65,5 @@
 #let Ext = $sans("Ext")$
 #let randSamp = $<-^"$"$
 
+///////////// One-Time Program /////////////
+#let OTP = $sans("OTP")$

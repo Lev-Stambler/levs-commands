@@ -96,6 +96,7 @@
 #let bigotimes = $times.circle.big$
 #let oplus = $plus.circle$
 #let bigoplus = $plus.circle.big$
+#let subseteq = $subset.eq$
 
 ///////////////// Math Symbols //////////////////
 #let eps = $epsilon.alt$
@@ -108,3 +109,4 @@
 ////////////////// Math Functions //////////////////
 #let Enc = $"Enc"$
 #let Dec = $"Dec"$
+
