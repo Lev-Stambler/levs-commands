@@ -9,6 +9,11 @@
 	TODO: #x
 ]
 
+// Change to your name!
+#let lev = x => text(green)[
+	LS: #x
+]
+
 #let LLMTODO = x => text(green)[
 	LLM TODO: #x
 ]

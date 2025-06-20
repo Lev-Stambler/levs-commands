@@ -41,10 +41,12 @@
 
 
 /////////////// Generic Protocol Commands for Commitments ////////////////
+#let GSetup = $bold("GlobalSetup")$
+#let Setup = $bold("Setup")$
+#let SetupNB = $"Setup"$
+#let Eval = $bold("Eval")$
+#let Init = $bold("Init")$
 #let Commit = $"Commit"$
-#let Setup = $"Setup"$
-#let Eval = $"Eval"$
-#let Init = $"Init"$
 #let Open = $"Open"$
 #let Verify = $"Verify"$
 #let KeyGen = $"KeyGen"$

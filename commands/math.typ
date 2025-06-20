@@ -34,12 +34,11 @@
   titlefmt: strong
 )
 
-#let definition = thmbox("definition", "Definition", inset: (x: 1.2em, top: 1em), base_level: 1,)
+#let definition = thmplain("definition", "Definition", base_level: 1, titlefmt: strong)
 #let observation = thmbox("observation", "Observation", inset: 1.5em, fill: rgb("eeeeee"), base_level: 1,)
 
 #let example = thmplain("example", "Example").with(numbering: none)
 #let proof = thmproof("proof", "Proof")
-
 
 
 #let eq = f => math.equation(f, numbering: "(1)", block: true, supplement: none)
@@ -47,8 +46,9 @@
   show ref: it => {
     if it.element != none and it.element.func() == math.equation {
       let num = it.element.numbering
-      if num != none {
-        [eq. (#it)]
+      let number = counter(math.equation).at(it.element.location()).first()
+      if number != none {
+        [eq. (#number)]
       } else {
         it
       }
@@ -100,7 +100,7 @@
 
 ///////////////// Math Symbols //////////////////
 #let eps = $epsilon.alt$
-
+#let prod = $product$
 
 #let ProbDist(x) = $bb(P)_#x$
 #let Var = $"Var"$
@@ -110,3 +110,5 @@
 #let Enc = $"Enc"$
 #let Dec = $"Dec"$
 
+/////////////// Probability ////////////////
+#let Expec = $limits(bb(E))$

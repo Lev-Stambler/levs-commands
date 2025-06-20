@@ -2,6 +2,7 @@
 #import "./complexity.typ" : *
 #import "./crypto.typ" : *
 #import "./writing_process.typ" : *
+#import "./format.typ" : *
 #import "./custom.typ" : *
 
 
