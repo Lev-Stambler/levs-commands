@@ -35,6 +35,7 @@
 )
 
 #let definition = thmplain("definition", "Definition", base_level: 1, titlefmt: strong)
+#let axiom = thmplain("axiom", "Axiom", base_level: 1, titlefmt: strong)
 #let observation = thmbox("observation", "Observation", inset: 1.5em, fill: rgb("eeeeee"), base_level: 1,)
 
 #let example = thmplain("example", "Example").with(numbering: none)
