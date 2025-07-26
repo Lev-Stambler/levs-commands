@@ -40,4 +40,79 @@
 
 #let thmH = defineThmLikeH("theorem", "Theorem")
 #let axiomH = defineThmLikeH("axiom", "Axiom")
+#let definitionH = defineThmLikeH("definition", "Definition")
+j
+
+#let htmlrules(doc) = if ishtml {
+  let incanvas = state("in-cetz-canvas", false)
+  let inpad = state("in-pad", false)
+
+  show block: it => context {
+    if in-no-rules.get() { it } else {
+      html.elem("div", attrs: (style: "display: block;"))[
+        #it
+      ]
+    }
+  }
+
+  show grid: it => context {
+    if in-no-rules.get() { it } else {
+      html.frame(it)
+    }
+  }
+
+  //show math.equation: it => context {
+  //  if incanvas.get() or inpad.get() { it } else { html.frame(it) }
+  //}
+
+
+  show math.equation.where(block: false): it => context {
+    if incanvas.get() or inpad.get() or in-no-rules.get() { it } else {
+      box(html.frame(it))
+    }
+  }
+  show math.equation.where(block: true): it => context {
+    if in-no-rules.get() { it } else [
+      #html.elem(
+        "div",
+        attrs: (
+          style: "padding: 0.5em; display: grid; justify-content: center; zoom: 1.3;",
+        ),
+      )[
+        #math.equation(it.body, block: false)
+      ]
+    ]
+  }
+
+  /////////////// Footnote style as tooltip ////////////
+  show footnote: it => context {
+    if in-no-rules.get() { it } else {
+      html.elem("span", attrs: (class: "tooltip-container"))[
+        #it
+        #html.elem("span", attrs: (class: "tooltip-text"))[
+          #it.body
+        ]
+      ]
+    }
+  }
+
+  show footnote.entry: it => context {
+    if in-no-rules.get() { it } else {
+      html.elem("span", attrs: (class: "footnote", title: it.body))[
+        #it
+      ]
+    }
+  }
+
+  doc
+}
+
+#let frameOriginal = it => context {
+  {
+    in-no-rules.update(true)
+    html.frame(it)
+    in-no-rules.update(false)
+  }
+}
+
 
