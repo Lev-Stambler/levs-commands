@@ -41,9 +41,9 @@
 #let thmH = defineThmLikeH("theorem", "Theorem")
 #let axiomH = defineThmLikeH("axiom", "Axiom")
 #let definitionH = defineThmLikeH("definition", "Definition")
-j
+#let in-no-rules = state("in-no-rules", false)
 
-#let htmlrules(doc) = if ishtml {
+#let htmlrules(doc) = {
   let incanvas = state("in-cetz-canvas", false)
   let inpad = state("in-pad", false)
 
