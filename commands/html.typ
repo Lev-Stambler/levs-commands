@@ -107,10 +107,16 @@
   doc
 }
 
-#let frameOriginal = it => context {
+#let frameOriginal = (it, div-wrap-style: "") => context {
   {
     in-no-rules.update(true)
-    html.frame(it)
+    if div-wrap-style != "" {
+      html.elem("div", attrs: (style: div-wrap-style))[
+        #html.frame(it)
+      ]
+    } else {
+      html.frame(it)
+    }
     in-no-rules.update(false)
   }
 }
