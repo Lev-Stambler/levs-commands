@@ -30,7 +30,7 @@
   "lemma",
   "Lemma",
   base_level: 1,
-  base: "theorem",
+  //base: "theorem",
   titlefmt: strong
 )
 

@@ -1,54 +1,139 @@
+#import "./math.typ" : *
+
+#let in-no-rules = state("in-no-rules", false)
+
+//#let is-html = state("is-html", true)
+#let ishtml = true
+#let is-html = state("is-html", ishtml)
+#let htmlswitch(optHTML, optRegular) = if ishtml { optHTML } else { optRegular } 
+
+#if ishtml {
+  let TODO = x => html.elem("span", attrs: (style: "color: red;"))[
+    TODO: #x
+  ]
+}
+
+
+#let gridH(columns: (1fr), ..content) =if ishtml {
+  for it in content.pos() {
+        //#html.elem("div", attrs: (class: "grid-item"))[ #it ]
+        it
+  }
+} else {
+  grid(content, columns: columns)
+}
+
+
+#let gridH(columns: (1fr), ..content) =if ishtml {
+  html.elem("div", attrs: (class: "grid-container", style: "display: grid; grid-template-columns: " + repr(columns).replace(",", " ").replace("(", "").replace(")", "") + "; gap: 1em;"))[
+    #for it in content.pos() {
+        html.elem("div", attrs: (class: "grid-item"))[ #it ]
+        //it
+    }
+  ]
+} else {
+  grid(content, columns: columns)
+}
+
+#let iframeExp = src => if ishtml [
+  #html.elem("div", attrs: (
+    class: "maximizable-iframe-container",
+    style: "margin: 1em;",
+  ))[
+
+    #html.elem("button", attrs: (
+      class: "iframe-back-button",
+      type: "button",
+      value: "Back",
+    ))[
+      Back ↩
+    ]
+
+    #html.elem("iframe", attrs: (src: src))[
+    ]
+
+    #html.elem("button", attrs: (class: "iframe-toggle-button"))[
+      ↗ Maximize
+    ]
+  ]
+] else [
+  NOT HTML DOCUMENT!
+]
+
+
+
 #let defineThmLikeH(name, display-name) = {
   let c = counter(name)
 
   return (title: none, body) => {
-  let env_type = display-name
-  //if title != none {
-  //  env_type = env_type + " " + title
-  //}
-  c.step()
-  
+    let env_type = display-name
+    c.step()
+    
 
-  // Use a context block to provide different output for HTML and other
-  // formats (like PDF).
-  context {
-    let full-title = [
-        *#env_type #c.display()*
-        #if title != none {
-          [ (#title) ]
+    // Use a context block to provide different output for HTML and other
+    // formats (like PDF).
+    context {
+      if is-html.get() {
+        let full-title = [
+            *#env_type #c.display()*
+            #if title != none {
+              [ (#title) ]
+            }
+          ]
+          // For HTML output, we construct the content by concatenating raw HTML
+          // snippets with the body content. The `html` function is part of
+          // Typst's native HTML support. The `body` content will be
+          // automatically converted to HTML by the compiler.
+          html.elem("div", attrs: (class: "theorem", style: "display: block; padding: 1em;"))[
+            #html.elem("span", attrs: (class: "theorem-title"))[
+              #full-title
+              //#if title != none {
+              //  html.elem("span", attrs: (class: "theorem-title-text"))[(#title)]
+              //}
+            ]:
+            #html.elem("span", attrs: (class: "theorem-body"))[
+              #body 
+            ]
+          ]
+        } else {
+          if name == "axiom" {
+            axiom[#title][#body]
+          }
+          else if name == "lemma" {
+            lemma[#title][#body]
+          }
+          else if name == "definition" {
+            definition[#title][#body]
+          }
+          else if name == "theorem" {
+            theorem[#title][#body]
+          }
+          else if name == "axiom" {
+            axiomH[#title][#body]
+          }
+          else if name == "lemma" {
+            lemmaH[#title][#body]
+          }
         }
-      ]
-      // For HTML output, we construct the content by concatenating raw HTML
-      // snippets with the body content. The `html` function is part of
-      // Typst's native HTML support. The `body` content will be
-      // automatically converted to HTML by the compiler.
-      html.elem("div", attrs: (class: "theorem", style: "display: block; padding: 1em;"))[
-        #html.elem("span", attrs: (class: "theorem-title"))[
-          #full-title
-          //#if title != none {
-          //  html.elem("span", attrs: (class: "theorem-title-text"))[(#title)]
-          //}
-        ]:
-        #html.elem("span", attrs: (class: "theorem-body"))[
-          #body 
-        ]
-      ]
-    } 
+      } 
+    }
   }
-}
 }
 
 #let thmH = defineThmLikeH("theorem", "Theorem")
 #let axiomH = defineThmLikeH("axiom", "Axiom")
 #let definitionH = defineThmLikeH("definition", "Definition")
-#let in-no-rules = state("in-no-rules", false)
+#let lemmaH = defineThmLikeH("lemma", "Lemma")
+#let theoremH = defineThmLikeH("theorem", "Theorem")
+
 
 #let htmlrules(doc) = {
+
   let incanvas = state("in-cetz-canvas", false)
   let inpad = state("in-pad", false)
 
   show block: it => context {
-    if in-no-rules.get() { it } else {
+   if in-no-rules.get() { it } else {
       html.elem("div", attrs: (style: "display: block;"))[
         #it
       ]
@@ -60,10 +145,6 @@
       html.frame(it)
     }
   }
-
-  //show math.equation: it => context {
-  //  if incanvas.get() or inpad.get() { it } else { html.frame(it) }
-  //}
 
 
   show math.equation.where(block: false): it => context {
@@ -108,17 +189,18 @@
 }
 
 #let frameOriginal = (it, div-wrap-style: "") => context {
-  {
-    in-no-rules.update(true)
-    if div-wrap-style != "" {
-      html.elem("div", attrs: (style: div-wrap-style))[
-        #html.frame(it)
-      ]
+    if is-html.get() {
+      in-no-rules.update(true)
+      if div-wrap-style != "" {
+        html.elem("div", attrs: (style: div-wrap-style))[
+          #html.frame(it)
+        ]
+      } else {
+        html.frame(it)
+      }
+      in-no-rules.update(false)
     } else {
-      html.frame(it)
+        it
     }
-    in-no-rules.update(false)
-  }
 }
-
 
