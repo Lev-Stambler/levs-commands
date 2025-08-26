@@ -35,6 +35,7 @@
 )
 
 #let definition = thmplain("definition", "Definition", base_level: 1, titlefmt: strong)
+#let principle = thmplain("principle", "Principle", base_level: 1, titlefmt: strong)
 #let axiom = thmplain("axiom", "Axiom", base_level: 1, titlefmt: strong)
 #let observation = thmbox("observation", "Observation", inset: 1.5em, fill: rgb("eeeeee"), base_level: 1,)
 
@@ -90,6 +91,20 @@
 #let calX = $cal(X)$
 #let calY = $cal(Y)$
 #let calZ = $cal(Z)$
+
+#let sfA = $sans(A)$
+#let sfB = $sans(B)$
+#let sfC = $sans(C)$
+#let sfD = $sans(D)$
+#let sfE = $sans(E)$
+#let sfF = $sans(F)$
+#let sfG = $sans(G)$
+#let sfH = $sans(H)$
+#let sfI = $sans(I)$
+#let sfJ = $sans(J)$
+#let sfK = $sans(K)$
+#let sfL = $sans(L)$
+
 
 ///////////////// Symbols from Latex That I like //////////////////
 #let circ = $circle.small" "$

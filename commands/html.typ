@@ -3,7 +3,7 @@
 #let in-no-rules = state("in-no-rules", false)
 
 //#let is-html = state("is-html", true)
-#let ishtml = true
+#let ishtml = true //true
 #let is-html = state("is-html", ishtml)
 #let htmlswitch(optHTML, optRegular) = if ishtml { optHTML } else { optRegular } 
 
@@ -32,7 +32,7 @@
     }
   ]
 } else {
-  grid(content, columns: columns)
+  grid(..content, columns: columns)
 }
 
 #let iframeExp = src => if ishtml [
@@ -100,7 +100,11 @@
             axiom[#title][#body]
           }
           else if name == "lemma" {
-            lemma[#title][#body]
+            if title == none {
+              lemma[#body]
+            } else {
+              lemma[#title][#body]
+            }
           }
           else if name == "definition" {
             definition[#title][#body]
@@ -108,11 +112,14 @@
           else if name == "theorem" {
             theorem[#title][#body]
           }
+          else if name == "principle" {
+            principle[#title][#body]
+          }
           else if name == "axiom" {
-            axiomH[#title][#body]
+            axiom[#title][#body]
           }
           else if name == "lemma" {
-            lemmaH[#title][#body]
+            lemma[#title][#body]
           }
         }
       } 
@@ -122,6 +129,7 @@
 
 #let thmH = defineThmLikeH("theorem", "Theorem")
 #let axiomH = defineThmLikeH("axiom", "Axiom")
+#let principleH = defineThmLikeH("principle", "Principle")
 #let definitionH = defineThmLikeH("definition", "Definition")
 #let lemmaH = defineThmLikeH("lemma", "Lemma")
 #let theoremH = defineThmLikeH("theorem", "Theorem")
