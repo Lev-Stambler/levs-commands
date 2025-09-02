@@ -128,3 +128,6 @@
 
 /////////////// Probability ////////////////
 #let Expec = $limits(bb(E))$
+
+//////////// Algorithms ////////////
+#let Comment(x) = text(rgb("#333333"))[\/\/ #x]

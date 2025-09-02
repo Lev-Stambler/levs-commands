@@ -41,13 +41,13 @@
     style: "margin: 1em;",
   ))[
 
-    #html.elem("button", attrs: (
-      class: "iframe-back-button",
-      type: "button",
-      value: "Back",
-    ))[
-      Back ↩
-    ]
+    //#html.elem("button", attrs: (
+    //  class: "iframe-back-button",
+    //  type: "button",
+    //  value: "Back",
+    //))[
+    //  Back ↩
+    //]
 
     #html.elem("iframe", attrs: (src: src))[
     ]
@@ -84,7 +84,7 @@
           // snippets with the body content. The `html` function is part of
           // Typst's native HTML support. The `body` content will be
           // automatically converted to HTML by the compiler.
-          html.elem("div", attrs: (class: "theorem", style: "display: block; padding: 1em;"))[
+          html.elem("div", attrs: (class: name, style: "display: block; padding: 1em;"))[
             #html.elem("span", attrs: (class: "theorem-title"))[
               #full-title
               //#if title != none {
@@ -127,12 +127,19 @@
   }
 }
 
+// TODO: allow for some style!
 #let thmH = defineThmLikeH("theorem", "Theorem")
 #let axiomH = defineThmLikeH("axiom", "Axiom")
 #let principleH = defineThmLikeH("principle", "Principle")
 #let definitionH = defineThmLikeH("definition", "Definition")
 #let lemmaH = defineThmLikeH("lemma", "Lemma")
 #let theoremH = defineThmLikeH("theorem", "Theorem")
+
+#let proofH(x) = htmlswitch(
+  html.elem("div", attrs: (class: "proof", style: "display: block; padding: 1em"))[
+  _Proof_: #x
+  ]
+, proof(x))
 
 
 #let htmlrules(doc) = {

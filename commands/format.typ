@@ -1,4 +1,4 @@
-#let fbox = (x) => box(stroke: (paint: black, thickness: 1pt),  inset: 8pt, radius: 2pt, width: 100%)[
+#let fbox = (x, width: 100%) => box(stroke: (paint: black, thickness: 1pt),  inset: (x: 16pt, y:12pt), radius: 2pt, width: width)[
 	#x
 ]
 

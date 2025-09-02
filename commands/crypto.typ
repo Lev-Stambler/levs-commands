@@ -38,25 +38,35 @@
 ///////////////// Information Theory in Crypto /////////////////
 #let Hmin = $H_oo$
 
-///////////////// Zero Knowledge Proofs /////////////////
+///////////////// (Zero Knowledge) Proofs /////////////////
 #let ZK = $sans("ZK")$
 #let ZKPoK = $sans("ZKPoK")$
+#let NIZK = $sans("NIZK")$
+#let Rel = $calR$
+#let accept = $mono("accept")$
+#let reject = $mono("reject")$
 
 
 /////////////// Generic Protocol Commands for Commitments ////////////////
 #let GSetup = $bold("GlobalSetup")$
 #let Setup = $bold("Setup")$
+#let Gen = $bold("Gen")$
 #let SetupNB = $"Setup"$
 #let Eval = $bold("Eval")$
 #let Init = $bold("Init")$
 #let Commit = $"Commit"$
-#let Open = $"Open"$
-#let Verify = $"Verify"$
+#let Open = $bold("Open")$
+#let Verify = $bold("Verify")$
 #let KeyGen = $"KeyGen"$
 #let Sign = $"Sign"$
 #let Agg = $"Agg"$
 #let AggVerify = $"AggVerify"$
-#let Prove = $"Prove"$
+#let Prove = $bold("Prove")$
+#let prove = $bold("prove")$
+#let proofTxt = $bold("proof")$
+#let verify = $bold("verify")$
+#let verification = $bold("verification")$
+#let witness = $bold("witness")$
 #let Valid = $"Valid"$
 #let comm = $mono("comm")$
 #let ck = $mono("ck")$
@@ -72,3 +82,15 @@
 
 ///////////// One-Time Program /////////////
 #let OTP = $sans("OTP")$
+#let VOTP = $"Ver-"sans("OTP")$
+#let otp = $sans("otp")$
+#let votp = $sans("v-otp")$
+#let crs = $mono("crs")$
+
+////////// Garbled Circuits //////////
+#let Garble = $sans("Garble")$
+
+////////////// UC ////////////
+#let sid  = $"sid"$
+#let ssid  = $"ssid"$
+
