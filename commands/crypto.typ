@@ -39,12 +39,6 @@
 #let Hmin = $H_oo$
 
 ///////////////// (Zero Knowledge) Proofs /////////////////
-#let ZK = $sans("ZK")$
-#let ZKPoK = $sans("ZKPoK")$
-#let NIZK = $sans("NIZK")$
-#let Rel = $calR$
-#let accept = $mono("accept")$
-#let reject = $mono("reject")$
 
 
 /////////////// Generic Protocol Commands for Commitments ////////////////
@@ -62,11 +56,6 @@
 #let Agg = $"Agg"$
 #let AggVerify = $"AggVerify"$
 #let Prove = $bold("Prove")$
-#let prove = $bold("prove")$
-#let proofTxt = $bold("proof")$
-#let verify = $bold("verify")$
-#let verification = $bold("verification")$
-#let witness = $bold("witness")$
 #let Valid = $"Valid"$
 #let comm = $mono("comm")$
 #let ck = $mono("ck")$

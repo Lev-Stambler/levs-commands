@@ -7,6 +7,7 @@
 #let open = $bold("open")$
 #let receipt = $bold("receipt")$
 #let cid = $bold("cid")$
+
 #let UC-Comm(citation) = [
   #figure(
     kind: "ideal",
@@ -26,7 +27,7 @@
       ]
     ],
     caption: [
-      Commitment ideal functionality $calF_Comm$ for program $f : {0, 1}^a times {0, 1}^b -> {0, 1}^c$ #cite(citation) // TODO: would be nice to have a better citation system rather than just passing it in
+      Commitment ideal functionality $calF_Comm$ #cite(citation) // TODO: would be nice to have a better citation system rather than just passing it in
     ],
   )<UC-Comm>
 ]

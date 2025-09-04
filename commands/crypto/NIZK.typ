@@ -37,7 +37,7 @@
       ]
     ],
     caption: [
-      NIZK argument ideal functionality $calF_"NIZK-Arg"$ #cite(citation) // TODO: would be nice to have a better citation system rather than just passing it in
+      NIZK argument ideal functionality $calF_NIZKArg$ #cite(citation) // TODO: would be nice to have a better citation system rather than just passing it in
     ],
   )<UC-Ideal-NIZK-Arg>]
 
