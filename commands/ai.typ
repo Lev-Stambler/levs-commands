@@ -1,8 +1,8 @@
-#import "./math.typ" : *
+#import "./math.typ": *
 
 #let Model = $calM$
 
-#let ModelL = (i) => $Model^((#i))$
+#let ModelL = i => $Model^((#i))$
 //#let ModelLR = (i) => $tilde(Model)^((#i))$
 #let Embed = $mono("Embed")$
 #let Unembed = $mono("Unembed")$

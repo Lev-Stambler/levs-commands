@@ -1,5 +1,5 @@
 /////////// Information Theory Typst Commands ///////////
-#import "./math.typ" : *
+#import "./math.typ": *
 
 #let ECC = $sans("ECC")$
 #let Code = $calC$

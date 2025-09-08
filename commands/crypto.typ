@@ -1,10 +1,10 @@
-#import "./math.typ" : *
+#import "./math.typ": *
 
 //////////////// Cryptography Commands for Typst ////////////////
 /**
-* Keep in mind that these are just my (Lev's) personal commands and preferences.
-* Feel free to use them, but remember that there are many other ways to do things.
-*/
+ * Keep in mind that these are just my (Lev's) personal commands and preferences.
+ * Feel free to use them, but remember that there are many other ways to do things.
+ */
 
 #let pk = $mono("pk")$
 #let mpk = $mono("mpk")$
@@ -80,6 +80,6 @@
 #let Garble = $sans("Garble")$
 
 ////////////// UC ////////////
-#let sid  = $"sid"$
-#let ssid  = $"ssid"$
+#let sid = $"sid"$
+#let ssid = $"ssid"$
 

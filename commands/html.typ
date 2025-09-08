@@ -1,11 +1,11 @@
-#import "./math.typ" : *
+#import "./math.typ": *
 
 #let in-no-rules = state("in-no-rules", false)
 
 //#let is-html = state("is-html", true)
 #let ishtml = true //true
 #let is-html = state("is-html", ishtml)
-#let htmlswitch(optHTML, optRegular) = if ishtml { optHTML } else { optRegular } 
+#let htmlswitch(optHTML, optRegular) = if ishtml { optHTML } else { optRegular }
 
 #if ishtml {
   let TODO = x => html.elem("span", attrs: (style: "color: red;"))[
@@ -14,21 +14,26 @@
 }
 
 
-#let gridH(columns: (1fr), ..content) =if ishtml {
+#let gridH(columns: 1fr, ..content) = if ishtml {
   for it in content.pos() {
-        //#html.elem("div", attrs: (class: "grid-item"))[ #it ]
-        it
+    //#html.elem("div", attrs: (class: "grid-item"))[ #it ]
+    it
   }
 } else {
   grid(content, columns: columns)
 }
 
 
-#let gridH(columns: (1fr), ..content) =if ishtml {
-  html.elem("div", attrs: (class: "grid-container", style: "display: grid; grid-template-columns: " + repr(columns).replace(",", " ").replace("(", "").replace(")", "") + "; gap: 1em;"))[
+#let gridH(columns: 1fr, ..content) = if ishtml {
+  html.elem("div", attrs: (
+    class: "grid-container",
+    style: "display: grid; grid-template-columns: "
+      + repr(columns).replace(",", " ").replace("(", "").replace(")", "")
+      + "; gap: 1em;",
+  ))[
     #for it in content.pos() {
-        html.elem("div", attrs: (class: "grid-item"))[ #it ]
-        //it
+      html.elem("div", attrs: (class: "grid-item"))[ #it ]
+      //it
     }
   ]
 } else {
@@ -68,63 +73,60 @@
   return (title: none, body) => {
     let env_type = display-name
     c.step()
-    
+
 
     // Use a context block to provide different output for HTML and other
     // formats (like PDF).
     context {
       if is-html.get() {
         let full-title = [
-            *#env_type #c.display()*
-            #if title != none {
-              [ (#title) ]
-            }
+          *#env_type #c.display()*
+          #if title != none {
+            [ (#title) ]
+          }
+        ]
+        // For HTML output, we construct the content by concatenating raw HTML
+        // snippets with the body content. The `html` function is part of
+        // Typst's native HTML support. The `body` content will be
+        // automatically converted to HTML by the compiler.
+        html.elem("div", attrs: (
+          class: name,
+          style: "display: block; padding: 1em;",
+        ))[
+          #html.elem("span", attrs: (class: "theorem-title"))[
+            #full-title
+            //#if title != none {
+            //  html.elem("span", attrs: (class: "theorem-title-text"))[(#title)]
+            //}
+          ]:
+          #html.elem("span", attrs: (class: "theorem-body"))[
+            #body
           ]
-          // For HTML output, we construct the content by concatenating raw HTML
-          // snippets with the body content. The `html` function is part of
-          // Typst's native HTML support. The `body` content will be
-          // automatically converted to HTML by the compiler.
-          html.elem("div", attrs: (class: name, style: "display: block; padding: 1em;"))[
-            #html.elem("span", attrs: (class: "theorem-title"))[
-              #full-title
-              //#if title != none {
-              //  html.elem("span", attrs: (class: "theorem-title-text"))[(#title)]
-              //}
-            ]:
-            #html.elem("span", attrs: (class: "theorem-body"))[
-              #body 
-            ]
-          ]
-        } else {
-          if name == "axiom" {
-            axiom[#title][#body]
-          }
-          else if name == "lemma" {
-            if title == none {
-              lemma[#body]
-            } else {
-              lemma[#title][#body]
-            }
-          }
-          else if name == "definition" {
-            definition[#title][#body]
-          }
-          else if name == "theorem" {
-            theorem[#title][#body]
-          }
-          else if name == "principle" {
-            principle[#title][#body]
-          }
-          else if name == "axiom" {
-            axiom[#title][#body]
-          }
-          else if name == "lemma" {
+        ]
+      } else {
+        if name == "axiom" {
+          axiom[#title][#body]
+        } else if name == "lemma" {
+          if title == none {
+            lemma[#body]
+          } else {
             lemma[#title][#body]
           }
+        } else if name == "definition" {
+          definition[#title][#body]
+        } else if name == "theorem" {
+          theorem[#title][#body]
+        } else if name == "principle" {
+          principle[#title][#body]
+        } else if name == "axiom" {
+          axiom[#title][#body]
+        } else if name == "lemma" {
+          lemma[#title][#body]
         }
-      } 
+      }
     }
   }
+}
 }
 
 // TODO: allow for some style!
@@ -136,19 +138,22 @@
 #let theoremH = defineThmLikeH("theorem", "Theorem")
 
 #let proofH(x) = htmlswitch(
-  html.elem("div", attrs: (class: "proof", style: "display: block; padding: 1em"))[
-  _Proof_: #x
-  ]
-, proof(x))
+  html.elem("div", attrs: (
+    class: "proof",
+    style: "display: block; padding: 1em",
+  ))[
+    _Proof_: #x
+  ],
+  proof(x),
+)
 
 
 #let htmlrules(doc) = {
-
   let incanvas = state("in-cetz-canvas", false)
   let inpad = state("in-pad", false)
 
   show block: it => context {
-   if in-no-rules.get() { it } else {
+    if in-no-rules.get() { it } else {
       html.elem("div", attrs: (style: "display: block;"))[
         #it
       ]
@@ -204,18 +209,18 @@
 }
 
 #let frameOriginal = (it, div-wrap-style: "") => context {
-    if is-html.get() {
-      in-no-rules.update(true)
-      if div-wrap-style != "" {
-        html.elem("div", attrs: (style: div-wrap-style))[
-          #html.frame(it)
-        ]
-      } else {
-        html.frame(it)
-      }
-      in-no-rules.update(false)
+  if is-html.get() {
+    in-no-rules.update(true)
+    if div-wrap-style != "" {
+      html.elem("div", attrs: (style: div-wrap-style))[
+        #html.frame(it)
+      ]
     } else {
-        it
+      html.frame(it)
     }
+    in-no-rules.update(false)
+  } else {
+    it
+  }
 }
 

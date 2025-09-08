@@ -1,5 +1,5 @@
 #import "@preview/ctheorems:1.1.3": *
-#import emoji : checkmark
+#import emoji: checkmark
 
 ///////////////// Theorem Styles //////////////////
 #show: thmrules
@@ -9,13 +9,18 @@
 #set heading(numbering: "1.1.")
 
 #let theorem = thmbox("theorem", "Theorem", fill: rgb("#eeeeee"), base_level: 1)
-#let assumption = thmbox("assumption", "Assumption", fill: rgb("#fffeee"), base_level: 1)
+#let assumption = thmbox(
+  "assumption",
+  "Assumption",
+  fill: rgb("#fffeee"),
+  base_level: 1,
+)
 #let corollary = thmplain(
   "corollary",
   "Corollary",
   base_level: 1,
   base: "theorem",
-  titlefmt: strong
+  titlefmt: strong,
 )
 
 // Due to a bug in the ctheorems package, if a section is lacking an inital theorem statement and we want to use a lemma, we need to define a new theorem style as follows
@@ -23,7 +28,7 @@
   "theorem",
   "Lemma",
   base_level: 1,
-  titlefmt: strong
+  titlefmt: strong,
 )
 
 #let lemma = thmplain(
@@ -31,13 +36,29 @@
   "Lemma",
   base_level: 1,
   //base: "theorem",
-  titlefmt: strong
+  titlefmt: strong,
 )
 
-#let definition = thmplain("definition", "Definition", base_level: 1, titlefmt: strong)
-#let principle = thmplain("principle", "Principle", base_level: 1, titlefmt: strong)
+#let definition = thmplain(
+  "definition",
+  "Definition",
+  base_level: 1,
+  titlefmt: strong,
+)
+#let principle = thmplain(
+  "principle",
+  "Principle",
+  base_level: 1,
+  titlefmt: strong,
+)
 #let axiom = thmplain("axiom", "Axiom", base_level: 1, titlefmt: strong)
-#let observation = thmbox("observation", "Observation", inset: 1.5em, fill: rgb("eeeeee"), base_level: 1,)
+#let observation = thmbox(
+  "observation",
+  "Observation",
+  inset: 1.5em,
+  fill: rgb("eeeeee"),
+  base_level: 1,
+)
 
 #let example = thmplain("example", "Example").with(numbering: none)
 #let proof = thmproof("proof", "Proof")

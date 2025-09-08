@@ -1,8 +1,9 @@
-#import "../format.typ" : *
-#import "../math.typ" : *
-#import "./UC.typ" : *
+#import "../format.typ": *
+#import "../math.typ": *
+#import "./UC.typ": *
 
 #let OTP = $sans("OTP")$
+#let OTM = $sans("OTM")$
 #let OTPComp = $sans("OTP")^*$
 #let VOTP = $"Ver-"sans("OTP")$
 #let otp = $sans("otp")$
@@ -36,7 +37,7 @@
       ]
     ],
     caption: [
-      OTP ideal functionality $calF_OTP$ for program $f : {0, 1}^a times {0, 1}^b -> {0, 1}^c$ #cite(citation) // TODO: would be nice to have a better citation system rather than just passing it in
+      OTP functionality $calF_OTP$ for poly-time $f : {0, 1}^a times {0, 1}^b -> {0, 1}^c$ #cite(citation) // TODO: would be nice to have a better citation system rather than just passing it in
     ],
   )<UC-Ideal-OTP>
 ]
@@ -56,7 +57,7 @@
       ]
     ],
     caption: [
-      Composable OTP ideal functionality $calF_OTPComp$ for program $f^(calF_1, dots, calF_m) : {0, 1}^a times {0, 1}^b -> {0, 1}^c$ and non-interactive ideal functionalities $calF_1, dots, calF_m$
+      OTP functionality $calF_OTPComp$ for program $f^(calF_1, dots, calF_m) : {0, 1}^a times {0, 1}^b -> {0, 1}^c$ and non-interactive ideal functionalities $calF_1, dots, calF_m$
     ],
   )<UC-Ideal-OTPComp>
 ]
@@ -64,7 +65,8 @@
 
 
 #let VerOTP = $"Ver-"sans("OTP")$
-#let UC-VerOTP(citation: 0) = [
+#let UC-VerOTP(is-UC: true, citation: 0) = [
+  #let sidMod = if is-UC { $sid,$ } else {}
   #figure(
     kind: "ideal",
     supplement: [Ideal Functionality],
@@ -72,23 +74,27 @@
       // https://dl.acm.org/doi/pdf/10.1145/2220357.2220358?casa_token=XYrP0sGDY-sAAAAA:bagPvzoelujdyMPr4vOtS4Q_fTvB5Pc0D_lfa_g2PsQu3dhY6wYUrbmYiq1cQX_-mzsbSK9Fpw Page 21 ideal func
       #align(center)[*Functionality* $calF_VerOTP$]
       #align(left)[
-        Parameterized with relation $Rel$ Running parties $P_1, dots, P_n$ and adversary $calS$:
+        Parameterized with relation $Rel$ Running parties $P_1, dots, P_n$ and adversary $calS$.
+        For security purposes, we also generate a re-usable common reference string $crs$ and a trapdoor $tau$ such that $crs$ is a commitment to a random value and $tau$ is the opening of the commitment.
+        Send $crs$ to all parties.
 
-        *Create*: Upon receiving $(create, sid, s_otp, z)$ from the sender $P$, ignore if $(z, s_otp) in.not Rel$. Send $(prove, z)$ to $calS$ and wait for answer $(proofTxt, pi, s^*)$.
+
+        *Create*: Upon receiving $(create, sidMod s_otp, z, crs)$ from the sender $P$, ignore if $(z, s_otp) in.not Rel$. Send $(prove, z)$ to $calS$ and wait for answer $(proofTxt, pi, s^*)$.
         If $s^* != bot$, set $s_otp = s^*$.  // allows simulator to change secret if needed
-        Send $(proofTxt, sid, pi)$ to $P$. Also, send $create$ to the receiver and store $(z, pi, s_otp)$
+        Send $(proofTxt, sidMod pi)$ to $P$. Also, send $create$ to the sender and store $(z, pi, s_otp)$
 
-        *Verifying Phase*: Upon receiving $(verify, sid, $z$, pi)$ from party $V$ check whether $(z, pi, s_otp)$ is stored.
+        *Verifying Phase*: Upon receiving $(verify, sidMod$z$, crs)$ from party $V$ check whether $(z, pi, s_otp)$ is stored.
         //If not, send $(verify, z)$ to $calS$ and wait for answer $(witness, w)$. Upon receiving the answer, check whether $(z, w) in Rel$ and if yes, store $(z, pi)$. TODO: we do not use this as we have an assumed "injectivity" with the secret
-        If $(z, pi, s_otp)$ has been stored return $(verification, sid, accept)$ to $V$ and store $accepted$ else return $(verification, sid, reject)$.
+        If $(z, pi, s_otp)$ has been stored return $(verification, sidMod accept)$ to $V$ and store $accepted$ else return $(verification, sidMod reject)$.
 
-        *Execute*: Upon receiving $(execute, sid, x in {0, 1}^b)$ from the receiver, if $s_otp$ is stored and $accepted$ is stored, u, compute $y = f(s_otp, x)$ and delete $s_otp$ and $accepted$.
+        *Execute*: Upon receiving $(execute, sidMod x in {0, 1}^b)$ from the receiver, if $s_otp$ is stored and $accepted$ is stored, u, compute $y = f(s_otp, x)$ and delete $s_otp$ and $accepted$.
       ]
     ],
     caption: [
       Verifiable OTP ideal functionality $calF_VerOTP$ for program $f : {0, 1}^a times {0, 1}^b -> {0, 1}^c$ #if citation != 0 { [#cite(citation)] } // TODO: would be nice to have a better citation system rather than just passing it in
     ],
-  )<UC-Ideal-VerOTP>
+  )
+  #label(if is-UC { "UC-Ideal-VerOTP" } else { "Sim-Ideal-VerOTP" })
 ]
 
 

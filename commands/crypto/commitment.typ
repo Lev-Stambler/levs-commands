@@ -1,6 +1,6 @@
-#import "../format.typ" : *
-#import "../math.typ" : *
-#import "./UC.typ" : *
+#import "../format.typ": *
+#import "../math.typ": *
+#import "./UC.typ": *
 
 #let Comm = $sans("Comm")$
 #let commit = $bold("commit")$

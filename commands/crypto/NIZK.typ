@@ -1,6 +1,6 @@
-#import "../format.typ" : *
-#import "../math.typ" : *
-#import "./UC.typ" : *
+#import "../format.typ": *
+#import "../math.typ": *
+#import "./UC.typ": *
 
 #let Rel = $calR$
 #let NIZKArg = $sans("NIZK-Arg")$
