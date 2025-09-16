@@ -3,7 +3,7 @@
 #let in-no-rules = state("in-no-rules", false)
 
 //#let is-html = state("is-html", true)
-#let ishtml = true //true
+#let ishtml = false //true
 #let is-html = state("is-html", ishtml)
 #let htmlswitch(optHTML, optRegular) = if ishtml { optHTML } else { optRegular }
 
@@ -137,15 +137,16 @@
 #let lemmaH = defineThmLikeH("lemma", "Lemma")
 #let theoremH = defineThmLikeH("theorem", "Theorem")
 
-#let proofH(x) = htmlswitch(
+#let proofH(x) = if ishtml {
   html.elem("div", attrs: (
     class: "proof",
     style: "display: block; padding: 1em",
   ))[
     _Proof_: #x
-  ],
-  proof(x),
-)
+  ]
+} else {
+  proof(x)
+}
 
 
 #let htmlrules(doc) = {

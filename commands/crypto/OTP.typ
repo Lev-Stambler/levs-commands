@@ -76,18 +76,22 @@
       #align(left)[
         Parameterized with relation $Rel$ Running parties $P_1, dots, P_n$ and adversary $calS$.
         For security purposes, we also generate a re-usable common reference string $crs$ and a trapdoor $tau$ such that $crs$ is a commitment to a random value and $tau$ is the opening of the commitment.
-        Send $crs$ to all parties.
+        We write $z$ for the public input to the relation and $s_otp$ for the secret input to the relation, which is also the secret input to the program $f$.
 
+        *Create*: Upon receiving $(create, sidMod s_otp, z, crs)$ from the sender $P$:
+        - Ignore if $(z, s_otp) in.not Rel$
+        - Send $(prove, z)$ to $calS$ and wait for answer $(proofTxt, s^*, z^*)$
+        - If $s^* != bot$, set $s_otp = s^*$. Set $z = z^*$  // allows simulator to change public input if needed
+        - If $(z, s_otp) in.not Rel$ ignore
+        - Otherwise, send $(create, votp)$ to the sender, store $(z, s_otp)$
 
-        *Create*: Upon receiving $(create, sidMod s_otp, z, crs)$ from the sender $P$, ignore if $(z, s_otp) in.not Rel$. Send $(prove, z)$ to $calS$ and wait for answer $(proofTxt, pi, s^*)$.
-        If $s^* != bot$, set $s_otp = s^*$.  // allows simulator to change secret if needed
-        Send $(proofTxt, sidMod pi)$ to $P$. Also, send $create$ to the sender and store $(z, pi, s_otp)$
-
-        *Verifying Phase*: Upon receiving $(verify, sidMod$z$, crs)$ from party $V$ check whether $(z, pi, s_otp)$ is stored.
+        *Verifying Phase*: Upon receiving $(verify, votp, sidMod$z$, crs)$ from party $V$:
+        - check whether $(z, s_otp)$ is stored
         //If not, send $(verify, z)$ to $calS$ and wait for answer $(witness, w)$. Upon receiving the answer, check whether $(z, w) in Rel$ and if yes, store $(z, pi)$. TODO: we do not use this as we have an assumed "injectivity" with the secret
-        If $(z, pi, s_otp)$ has been stored return $(verification, sidMod accept)$ to $V$ and store $accepted$ else return $(verification, sidMod reject)$.
+        - If $(z, s_otp)$ has been stored return $(verification, otp, sidMod accept)$ to $V$ and store $accepted$
+        - Otherwise return $(verification, sidMod reject)$.
 
-        *Execute*: Upon receiving $(execute, sidMod x in {0, 1}^b)$ from the receiver, if $s_otp$ is stored and $accepted$ is stored, u, compute $y = f(s_otp, x)$ and delete $s_otp$ and $accepted$.
+        *Execute*: Upon receiving $(execute, otp, sidMod x in {0, 1}^b)$ from the receiver, if $s_otp$ is stored and $accepted$ is stored, compute $y = f(s_otp, x)$ and delete $s_otp$ and $accepted$.
       ]
     ],
     caption: [

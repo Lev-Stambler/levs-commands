@@ -64,6 +64,7 @@
 #let proof = thmproof("proof", "Proof")
 
 
+#let eqNoNumb = f => math.equation(f, numbering: none, block: true, supplement: none)
 #let eq = f => math.equation(f, numbering: "(1)", block: true, supplement: none)
 #let eqrules(doc) = {
   show ref: it => {
