@@ -116,6 +116,7 @@
 
 #let sfA = $sans(A)$
 #let sfB = $sans(B)$
+#let sfCount = $sans("Count")$
 #let sfC = $sans(C)$
 #let sfD = $sans(D)$
 #let sfE = $sans(E)$
@@ -145,7 +146,7 @@
 #let ind = $"ind"$
 
 ////////////////// Math Functions //////////////////
-#let Enc = $"Enc"$
+#let Enc = $bold("Enc")$
 #let Dec = $"Dec"$
 
 /////////////// Probability ////////////////
